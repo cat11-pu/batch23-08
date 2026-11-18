@@ -1,7 +1,7 @@
 import pytest
 import threading
 import os
-from storage.tmp_file import get_user_tmp_path, write_user_temp
+from storage.tmp_file import get_user_tmp_path, write_user_temp, SecurityError
 
 def test_1_temp_filename_not_predictable():
     p1 = get_user_tmp_path("u1")
