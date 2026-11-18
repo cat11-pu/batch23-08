@@ -9,7 +9,7 @@ def test_1_temp_filename_not_predictable():
     assert p1 != p2
 
 def test_2_toctou_symlink_attack_resist():
-    # simulate pre‑existing symlink
+    # simulate pre-existing symlink
     user = "u_toctou_01"
     fp = get_user_tmp_path(user)
     # attacker create symlink ahead
@@ -43,7 +43,7 @@ def test_5_concurrent_write_same_user_no_corruption():
     t1 = threading.Thread(target=worker, args=(b"A"*4096,))
     t2 = threading.Thread(target=worker, args=(b"B"*4096,))
     t1.start(); t2.start(); t1.join(); t2.join()
-    # must not produce interleaved garbage mix‑file due missing lock
+    # must not produce interleaved garbage mix-file due missing lock
     assert not any(isinstance(r,bytes) and (b"ABAB" in r or b"BABA" in r) for r in results)
 
 def test_6_empty_payload_allowed_safe():
@@ -62,18 +62,18 @@ def test_8_user_id_empty_reject():
         get_user_tmp_path("")
 
 def test_9_two_different_user_file_isolation():
-    uA = "user‑A‑99"
-    uB = "user‑B‑99"
+    uA = "user-A-99"
+    uB = "user-B-99"
     fA = get_user_tmp_path(uA)
     fB = get_user_tmp_path(uB)
     assert fA != fB
 
-def test_10_append‑style‑write‑race‑blocked():
+def test_10_append-style-write-race-blocked():
     user = "u_append_race"
     fp = get_user_tmp_path(user)
     # attacker open fd append beforehand
     with pytest.raises(SecurityError):
-        write_user_temp(user, b"secret‑value‑123")
+        write_user_temp(user, b"secret-value-123")
 
 def test_11_tmp_base_dir_exists_check():
     from storage.tmp_file import TMP_BASE
@@ -96,7 +96,7 @@ def test_14_no_leak_fd_after_write():
     proc = psutil.Process()
     pre = set(fd for fd, path in proc.open_files())
     user = "u_fd_leak"
-    write_user_temp(user, b"test‑fd")
+    write_user_temp(user, b"test-fd")
     post = set(fd for fd, path in proc.open_files())
     assert len(post - pre) == 0
 
