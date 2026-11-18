@@ -68,7 +68,7 @@ def test_9_two_different_user_file_isolation():
     fB = get_user_tmp_path(uB)
     assert fA != fB
 
-def test_10_append-style-write-race-blocked():
+def test_10_append_style_write_race_blocked():
     user = "u_append_race"
     fp = get_user_tmp_path(user)
     # attacker open fd append beforehand
